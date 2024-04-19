@@ -26,7 +26,7 @@ public class Data_barang extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null);
         
-        txt_kode.setEnabled(false);
+        txt_id.setEnabled(false);
         
         model = new DefaultTableModel();
         
@@ -53,25 +53,25 @@ public class Data_barang extends javax.swing.JFrame {
         String sql = "SELECT id FROM data_barang ORDER BY id DESC LIMIT 1";
         try (ResultSet r = s.executeQuery(sql)) {
             if (r.next()) {
-                String lastId = r.getString("kode_alat");
+                String lastId = r.getString("id_alat");
                 int number = Integer.parseInt(lastId.substring(2)) + 1;
                 String newId = String.format("BR%03d", number);
-                txt_kode.setText(newId);
+                txt_id.setText(newId);
             } else {
                 // Jika tidak ada data, maka nomor otomatis akan dimulai dari BR001
-                txt_kode.setText("BR001");
+                txt_id.setText("BR001");
             }
         }
     } catch (SQLException e) {
         // Tangani kesalahan SQL
         System.err.println("Error saat menghasilkan nomor otomatis: " + e.getMessage());
         // Atur nilai default jika terjadi kesalahan
-        txt_kode.setText("BR001");
+        txt_id.setText("BR001");
     } catch (Exception e) {
         // Tangani kesalahan umum
         System.err.println("Error: " + e.getMessage());
         // Atur nilai default jika terjadi kesalahan
-        txt_kode.setText("BR001");
+        txt_id.setText("BR001");
     }
 }
     
@@ -100,7 +100,7 @@ public class Data_barang extends javax.swing.JFrame {
                 // Iterasi melalui hasil query dan tambahkan baris ke model
                 while (r.next()) {
                     Object[] o = new Object[4];
-                    o[0] = r.getString("kode_alat");
+                    o[0] = r.getString("id_alat");
                     o[1] = r.getString("nama_alat");
                     o[2] = r.getString("jenis_alat");
                     o[3] = r.getString("harga_rental");
@@ -134,7 +134,7 @@ public class Data_barang extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txt_kode = new javax.swing.JTextField();
+        txt_id = new javax.swing.JTextField();
         txt_nama = new javax.swing.JTextField();
         txt_harga = new javax.swing.JTextField();
         txt_jenis = new javax.swing.JTextField();
@@ -173,11 +173,11 @@ public class Data_barang extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Harga Rental");
 
-        txt_kode.setBackground(new java.awt.Color(255, 255, 255));
-        txt_kode.setForeground(new java.awt.Color(0, 0, 0));
-        txt_kode.addActionListener(new java.awt.event.ActionListener() {
+        txt_id.setBackground(new java.awt.Color(255, 255, 255));
+        txt_id.setForeground(new java.awt.Color(0, 0, 0));
+        txt_id.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_kodeActionPerformed(evt);
+                txt_idActionPerformed(evt);
             }
         });
 
@@ -304,7 +304,7 @@ public class Data_barang extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txt_kode, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txt_harga, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txt_jenis, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(txt_nama, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -347,7 +347,7 @@ public class Data_barang extends javax.swing.JFrame {
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(txt_kode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txt_nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -389,9 +389,9 @@ public class Data_barang extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_kodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_kodeActionPerformed
+    private void txt_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_kodeActionPerformed
+    }//GEN-LAST:event_txt_idActionPerformed
 
     private void txt_hargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hargaActionPerformed
         // TODO add your handling code here:
@@ -410,7 +410,7 @@ public class Data_barang extends javax.swing.JFrame {
     private void btn_simpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_simpanActionPerformed
         // TODO add your handling code here:
         
-        String kode_alat = txt_kode.getText();
+        String id_alat = txt_id.getText();
         String nama_alat = txt_nama.getText();
         String jenis_alat = txt_jenis.getText();
         String harga_rental = txt_harga.getText();
@@ -419,7 +419,7 @@ public class Data_barang extends javax.swing.JFrame {
             Connection c = Koneksi.getKoneksi();
             String sql = "INSERT INTO data_barang VALUES (?, ?, ?, ?,)";
             PreparedStatement p = c.prepareStatement(sql);
-            p.setString(1, kode_alat);
+            p.setString(1, id_alat);
             p.setString(2, nama_alat);
             p.setString(3, jenis_alat);
             p.setString(4, harga_rental);
@@ -520,7 +520,7 @@ public class Data_barang extends javax.swing.JFrame {
         }
         
         String id_alat = (String)model.getValueAt(i, 0);
-        txt_kode.setText(id_alat);
+        txt_id.setText(id_alat);
         String nama_alat = (String)model.getValueAt(i, 1);
         txt_nama.setText(nama_alat);
         String jenis_alat = (String)model.getValueAt(i, 2);
@@ -581,8 +581,8 @@ public class Data_barang extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JButton kembali;
     private javax.swing.JTextField txt_harga;
+    private javax.swing.JTextField txt_id;
     private javax.swing.JTextField txt_jenis;
-    private javax.swing.JTextField txt_kode;
     private javax.swing.JTextField txt_nama;
     // End of variables declaration//GEN-END:variables
 }
