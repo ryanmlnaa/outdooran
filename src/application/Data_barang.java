@@ -54,7 +54,7 @@ public class Data_barang extends javax.swing.JFrame {
         System.out.println(c.isClosed());
         Statement s = c.createStatement();
         
-        String sql = "SELECT id FROM data_barang ORDER BY id DESC LIMIT 1";
+        String sql = "SELECT id_alat FROM data_barang ORDER BY id_alat DESC LIMIT 1";
         ResultSet r = s.executeQuery(sql);
             if (r.next()) {
                 String lastId = r.getString("id_alat");
