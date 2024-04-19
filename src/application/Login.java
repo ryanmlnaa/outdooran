@@ -169,7 +169,7 @@ public class Login extends javax.swing.JFrame {
         SPass = "";
         int notFound = 0;
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection(SUrl, SUser, SPass);
             Statement st = con.createStatement();
             if("".equals(email.getText())){

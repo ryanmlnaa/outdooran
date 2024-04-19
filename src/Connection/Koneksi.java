@@ -22,7 +22,7 @@ public class Koneksi {
                 String url = "jdbc:mysql://localhost:3306/rental_outdoor";
                 String user = "root";
                 String pass = "";
-                DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+                DriverManager.registerDriver(new com.mysql.jdbc.Driver());
                 conn = (Connection) DriverManager.getConnection(url, user, pass);
             } catch (Exception e) {
                 Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, e);

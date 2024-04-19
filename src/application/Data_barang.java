@@ -23,7 +23,7 @@ public class Data_barang extends javax.swing.JFrame {
      */
     public Data_barang() {
         initComponents();
-        
+
         this.setLocationRelativeTo(null);
         
         txt_id.setEnabled(false);
@@ -47,11 +47,15 @@ public class Data_barang extends javax.swing.JFrame {
     private DefaultTableModel model;
     
    private void autonumber() {
-    try (Connection c = Koneksi.getKoneksi();
-         Statement s = c.createStatement()) {
+    try {
+        System.out.println("hehe");
+        koneksi.getKoneksi();
+        Connection c = koneksi.koneksi;
+        System.out.println(c.isClosed());
+        Statement s = c.createStatement();
         
         String sql = "SELECT id FROM data_barang ORDER BY id DESC LIMIT 1";
-        try (ResultSet r = s.executeQuery(sql)) {
+        ResultSet r = s.executeQuery(sql);
             if (r.next()) {
                 String lastId = r.getString("id_alat");
                 int number = Integer.parseInt(lastId.substring(2)) + 1;
@@ -60,16 +64,12 @@ public class Data_barang extends javax.swing.JFrame {
             } else {
                 // Jika tidak ada data, maka nomor otomatis akan dimulai dari BR001
                 txt_id.setText("BR001");
+                System.out.println("Tidak ada data");
             }
         }
-    } catch (SQLException e) {
-        // Tangani kesalahan SQL
-        System.err.println("Error saat menghasilkan nomor otomatis: " + e.getMessage());
-        // Atur nilai default jika terjadi kesalahan
-        txt_id.setText("BR001");
-    } catch (Exception e) {
+     catch (Exception e) {
         // Tangani kesalahan umum
-        System.err.println("Error: " + e.getMessage());
+        e.printStackTrace();
         // Atur nilai default jika terjadi kesalahan
         txt_id.setText("BR001");
     }
@@ -88,7 +88,8 @@ public class Data_barang extends javax.swing.JFrame {
         model.fireTableDataChanged();
 
         // Buat koneksi
-        try (Connection c = Koneksi.getKoneksi();
+        koneksi.getKoneksi();
+        try (Connection c = koneksi.koneksi;
              Statement s = c.createStatement()) {
             String sql = "SELECT * FROM data_barang";
             try (ResultSet r = s.executeQuery(sql)) {
@@ -111,10 +112,10 @@ public class Data_barang extends javax.swing.JFrame {
         }
     } catch (SQLException e) {
         // Tangani kesalahan SQL
-        System.err.println("Terjadi kesalahan saat mengambil data: " + e.getMessage());
+        e.printStackTrace();
     } catch (Exception e) {
         // Tangani kesalahan umum
-        System.err.println("Terjadi kesalahan: " + e.getMessage());
+        e.printStackTrace();
     }
 }
 
@@ -416,7 +417,7 @@ public class Data_barang extends javax.swing.JFrame {
         String harga_rental = txt_harga.getText();
         
         try{
-            Connection c = Koneksi.getKoneksi();
+            Connection c = koneksi.koneksi;
             String sql = "INSERT INTO data_barang VALUES (?, ?, ?, ?,)";
             PreparedStatement p = c.prepareStatement(sql);
             p.setString(1, id_alat);
@@ -450,7 +451,7 @@ public class Data_barang extends javax.swing.JFrame {
         String harga = txt_harga.getText();
         
         try{
-            Connection c = Koneksi.getKoneksi();
+            Connection c = koneksi.koneksi;
             String sql = "UPDATE data_barang SET nama = ?, jenis = ?, harga = ? WHERE id = ?";
             PreparedStatement p = c.prepareStatement(sql);
             p.setString(1, nama);
@@ -492,7 +493,7 @@ public class Data_barang extends javax.swing.JFrame {
                 JOptionPane.QUESTION_MESSAGE);
         if(question == JOptionPane.OK_OPTION){
             try{
-                Connection c = Koneksi.getKoneksi();
+                Connection c = koneksi.koneksi;
                 String sql = "DELETE FROM inventory WHERE id = ?";
                 PreparedStatement p = c.prepareStatement(sql);
                 p.setString(1, id);
