@@ -1,0 +1,15 @@
+
+package application;
+
+public class Loginn {
+
+
+    public static void main(String[] args) {
+
+        Login LoginFrame = new Login();
+        LoginFrame.setVisible(true);
+        LoginFrame.pack();
+        LoginFrame.setLocationRelativeTo(null); 
+    }
+    
+}
